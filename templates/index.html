@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Downloader 2026</title>
+    <style>
+        /* Aapka diya hua behtar CSS */
+        body { background: #0f172a; color: white; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .box { background: #1e293b; padding: 30px; border-radius: 20px; text-align: center; width: 380px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 1px solid #334155; }
+        h1 span { color: #38bdf8; text-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 2px solid #334155; background: #0f172a; color: white; box-sizing: border-box; transition: 0.3s; }
+        input:focus { outline: none; border-color: #38bdf8; }
+        button { background: #38bdf8; color: #0f172a; width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        button:hover { background: #0ea5e9; transform: translateY(-2px); }
+        
+        /* Thumbnail aur Download Button */
+        .thumb-img { width: 100%; border-radius: 10px; margin: 15px 0; border: 2px solid #334155; }
+        .btn-download { display: block; background: #22c55e; color: white; padding: 12px; text-decoration: none; border-radius: 8px; margin-top: 10px; font-weight: bold; transition: 0.3s; }
+        .btn-download:hover { background: #16a34a; box-shadow: 0 5px 15px rgba(34, 197, 94, 0.4); }
+        
+        /* Error aur Loading */
+        .error { color: #f87171; font-size: 13px; margin-bottom: 10px; }
+        .disc { margin-top: 25px; font-size: 10px; color: #94a3b8; border-top: 1px solid #334155; padding-top: 10px; }
+        #loading { display: none; margin-top: 15px; font-size: 14px; color: #38bdf8; }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1>Video <span>Downloader</span></h1>
+    
+    <form action="/get_link" method="POST" onsubmit="showLoading()">
+        <input type="text" name="video_url" placeholder="Paste link here (YouTube, FB, etc.)" required>
+        <button type="submit" id="submit-btn">Get Download Link</button>
+    </form>
+
+    <div id="loading">⏳ Processing... Please wait</div>
+
+    {% if error %}
+        <p class="error">❌ {{ error }}</p>
+    {% endif %}
+
+    {% if direct_url %}
+        <div class="result-area">
+            <img src="{{ thumb }}" alt="Thumbnail" class="thumb-img">
+            <h4 style="font-size: 14px; margin: 5px 0;">{{ title }}</h4>
+            <a href="{{ direct_url }}" class="btn-download" target="_blank" rel="noopener noreferrer">
+                📥 Click to Save Video
+            </a>
+            <p style="font-size: 10px; margin-top: 5px; color: #94a3b8;">Link generated successfully!</p>
+        </div>
+    {% endif %}
+
+    <div class="disc">
+        Disclaimer: Only download videos for offline personal use. Respect copyrights.
+    </div>
+</div>
+
+<script>
+    function showLoading() {
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('submit-btn').innerText = 'Extracting...';
+    }
+</script>
+
+</body>
+</html>
