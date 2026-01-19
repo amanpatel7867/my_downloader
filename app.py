@@ -11,14 +11,15 @@ def index():
 def get_link():
     url = request.form.get('video_url')
     if not url:
-        return render_template('index.html', error="Kripya link daalein!")
+        return render_template('index.html', error="Kripya URL paste karein!")
 
     try:
-        # download=False matlab server par kuch save nahi hoga
+        # download=False taaki aapka server load na le
         ydl_opts = {
             'format': 'best',
             'noplaylist': True,
             'quiet': True,
+            'nocheckcertificate': True
         }
         
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -27,9 +28,13 @@ def get_link():
             title = info.get('title')
             thumb = info.get('thumbnail')
 
-        return render_template('index.html', direct_url=video_url, title=title, thumb=thumb)
+        return render_template('index.html', 
+                             direct_url=video_url, 
+                             title=title, 
+                             thumb=thumb)
 
-    except Exception as e:
-        return render_template('index.html', error="YouTube ne request block ki hai. Kuch der baad try karein.")
+    except Exception:
+        return render_template('index.html', error="Video link nahi mil paya. Dusra link try karein.")
 
+# Vercel requirements
 app = app
