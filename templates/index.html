@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapLoad - Direct Downloader</title>
+    <title>SnapLoad - All-in-One Downloader</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -11,31 +11,32 @@
     <div class="container">
         <header>
             <h1>Snap<span>Load</span></h1>
-            <p>High Speed Direct Video Downloader</p>
+            <div class="social-icons">
+                <i class="fab fa-youtube"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-facebook"></i>
+            </div>
+            <p>Download from YouTube, Instagram & Facebook</p>
         </header>
 
         <form action="/get_link" method="POST" class="input-area">
-            <input type="text" name="video_url" placeholder="YouTube video link paste karein..." required>
-            <button type="submit"><i class="fas fa-bolt"></i> Link Generate Karein</button>
+            <input type="text" name="video_url" placeholder="Paste link here..." required>
+            <button type="submit">Download Now</button>
         </form>
 
-        {% if error %}
-            <div class="error-box">{{ error }}</div>
-        {% endif %}
+        {% if error %}<p class="error">{{ error }}</p>{% endif %}
 
         {% if direct_url %}
         <div class="result-card">
-            <img src="{{ thumb }}" class="thumb" alt="thumbnail">
-            <h3 class="video-title">{{ title }}</h3>
-            <a href="{{ direct_url }}" target="_blank" class="download-btn">
-                <i class="fas fa-download"></i> User Device mein Save Karein
-            </a>
+            <img src="{{ thumb }}" class="thumb">
+            <h3>{{ title[:50] }}...</h3>
+            <a href="{{ direct_url }}" target="_blank" class="download-btn">Save to Device</a>
         </div>
         {% endif %}
 
         <div class="disclaimer-section">
-            <h4><i class="fas fa-shield-alt"></i> Disclaimer</h4>
-            <p>Ye website sirf educational use ke liye hai. Hum kisi bhi prakar ka content apne server par store nahi karte. Jab aap download par click karte hain, toh video direct source server se aapke phone/computer mein download hoti hai. Copyrighted content download karna kanoonan apradh hai, kripya niyam maanein.</p>
+            <h4>Disclaimer</h4>
+            <p>Ye website sirf personal use ke liye hai. Hum content host nahi karte. Copyright kanoon ka samman karein.</p>
         </div>
     </div>
 </body>
