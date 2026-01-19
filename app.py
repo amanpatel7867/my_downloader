@@ -14,12 +14,13 @@ def get_link():
         return render_template('index.html', error="Kripya URL paste karein!")
 
     try:
-        # download=False taaki aapka server load na le
+        # User-Agent add kiya gaya hai taaki YouTube block na kare
         ydl_opts = {
             'format': 'best',
             'noplaylist': True,
             'quiet': True,
-            'nocheckcertificate': True
+            'nocheckcertificate': True,
+            'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
         }
         
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -33,8 +34,9 @@ def get_link():
                              title=title, 
                              thumb=thumb)
 
-    except Exception:
-        return render_template('index.html', error="Video link nahi mil paya. Dusra link try karein.")
+    except Exception as e:
+        # Asli error check karne ke liye console log
+        print(f"Error: {e}")
+        return render_template('index.html', error="YouTube ne security block laga diya hai. Dusra video link try karein ya 5 min baad koshish karein.")
 
-# Vercel requirements
 app = app
