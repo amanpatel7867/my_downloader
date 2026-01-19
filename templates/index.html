@@ -3,40 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapLoad - All-in-One Downloader</title>
+    <title>SnapLoad - Premium Multi-Downloader</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
+    <div class="glass-container">
         <header>
-            <h1>Snap<span>Load</span></h1>
-            <div class="social-icons">
+            <div class="logo">Snap<span>Load</span></div>
+            <div class="supported-platforms">
                 <i class="fab fa-youtube"></i>
                 <i class="fab fa-instagram"></i>
                 <i class="fab fa-facebook"></i>
+                <i class="fab fa-twitter"></i>
             </div>
-            <p>Download from YouTube, Instagram & Facebook</p>
+            <p>Fast, Free & Direct Downloads</p>
         </header>
 
-        <form action="/get_link" method="POST" class="input-area">
-            <input type="text" name="video_url" placeholder="Paste link here..." required>
-            <button type="submit">Download Now</button>
+        <form action="/get_link" method="POST" class="search-box">
+            <input type="text" name="video_url" placeholder="Paste video link here..." required>
+            <button type="submit"><i class="fas fa-arrow-right"></i></button>
         </form>
 
-        {% if error %}<p class="error">{{ error }}</p>{% endif %}
+        {% if error %}
+            <div class="error-msg"><i class="fas fa-exclamation-triangle"></i> {{ error }}</div>
+        {% endif %}
 
         {% if direct_url %}
-        <div class="result-card">
-            <img src="{{ thumb }}" class="thumb">
-            <h3>{{ title[:50] }}...</h3>
-            <a href="{{ direct_url }}" target="_blank" class="download-btn">Save to Device</a>
+        <div class="result-area animate-in">
+            <div class="video-preview">
+                <img src="{{ thumb }}" alt="preview">
+                <div class="overlay"></div>
+            </div>
+            <p class="v-title">{{ title[:60] }}...</p>
+            <a href="{{ direct_url }}" target="_blank" class="main-dl-btn">
+                <i class="fas fa-cloud-download-alt"></i> Download to Device
+            </a>
         </div>
         {% endif %}
 
-        <div class="disclaimer-section">
-            <h4>Disclaimer</h4>
-            <p>Ye website sirf personal use ke liye hai. Hum content host nahi karte. Copyright kanoon ka samman karein.</p>
+        <div class="disclaimer-card">
+            <h5><i class="fas fa-balance-scale"></i> Disclaimer</h5>
+            <p>SnapLoad sirf personal aur educational use ke liye hai. Hum kisi bhi content ko host nahi karte; saari file direct source server se user ke device mein download hoti hai. Hum copyright ka samman karte hain aur users se bhi yahi umeed rakhte hain.</p>
         </div>
     </div>
 </body>
