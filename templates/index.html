@@ -5,28 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SnapLoad - Direct Downloader</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>Snap<span>Load</span></h1>
-        <form action="/get_link" method="POST">
-            <input type="text" name="video_url" placeholder="Paste YouTube link here..." required>
-            <button type="submit">Get Download Link</button>
+        <header>
+            <h1>Snap<span>Load</span></h1>
+            <p>High Speed Direct Video Downloader</p>
+        </header>
+
+        <form action="/get_link" method="POST" class="input-area">
+            <input type="text" name="video_url" placeholder="YouTube video link paste karein..." required>
+            <button type="submit"><i class="fas fa-bolt"></i> Link Generate Karein</button>
         </form>
 
-        {% if error %}<p class="error">{{ error }}</p>{% endif %}
+        {% if error %}
+            <div class="error-box">{{ error }}</div>
+        {% endif %}
 
         {% if direct_url %}
-        <div class="result">
-            <img src="{{ thumb }}" width="100%" style="border-radius: 8px;">
-            <h3>{{ title }}</h3>
-            <a href="{{ direct_url }}" download target="_blank" class="dl-btn">Download to Device</a>
+        <div class="result-card">
+            <img src="{{ thumb }}" class="thumb" alt="thumbnail">
+            <h3 class="video-title">{{ title }}</h3>
+            <a href="{{ direct_url }}" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> User Device mein Save Karein
+            </a>
         </div>
         {% endif %}
 
-        <div class="disclaimer-box">
-            <p><strong>⚠️ Disclaimer:</strong></p>
-            <p>Ye website sirf educational purposes ke liye hai. Hum apne server par koi bhi video store ya host nahi karte hain. Sabhi downloads direct YouTube ke servers se user ke device mein hote hain. Is tool ka istemal sirf non-copyrighted content ke liye karein.</p>
+        <div class="disclaimer-section">
+            <h4><i class="fas fa-shield-alt"></i> Disclaimer</h4>
+            <p>Ye website sirf educational use ke liye hai. Hum kisi bhi prakar ka content apne server par store nahi karte. Jab aap download par click karte hain, toh video direct source server se aapke phone/computer mein download hoti hai. Copyrighted content download karna kanoonan apradh hai, kripya niyam maanein.</p>
         </div>
     </div>
 </body>
