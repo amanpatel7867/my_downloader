@@ -12,33 +12,36 @@ def index():
 def get_link():
     url = request.form.get('video_url')
     if not url:
-        return render_template('index.html', error="Kripya link paste karein!")
+        return render_template('index.html', error="Kripya URL paste karein!")
 
-    # Block se bachne ke liye Cookies file ka istemal
+    # Block se bachne ke liye cookies zaroori hain
     cookie_path = 'cookies.txt'
 
     try:
         ydl_opts = {
-            # 'best' format se teeno sites ke links nikal aayenge
             'format': 'best',
             'noplaylist': True,
             'quiet': True,
             'nocheckcertificate': True,
             'cookiefile': cookie_path if os.path.exists(cookie_path) else None,
-            # Professional User-Agent
-            'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'extract_flat': False,
         }
         
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
+            # Facebook/Instagram ke liye specific handle
             video_url = info.get('url')
-            title = info.get('title', 'Social Media Video')
-            thumb = info.get('thumbnail', 'https://via.placeholder.com/300x200?text=No+Thumbnail')
-
-        return render_template('index.html', direct_url=video_url, title=title, thumb=thumb)
+            if not video_url and 'entries' in info:
+                video_url = info['entries'][0].get('url')
+            
+            return render_template('index.html', 
+                                 direct_url=video_url, 
+                                 title=info.get('title', 'Social Media Video'), 
+                                 thumb=info.get('thumbnail', 'https://via.placeholder.com/400x225?text=Video+Found'))
 
     except Exception as e:
         print(f"Error: {e}")
-        return render_template('index.html', error="Link nahi mil paya. Link sahi hai ya nahi, ye check karein.")
+        return render_template('index.html', error="Link nahi mil paya. Kripya cookies update karein ya sahi link daalein.")
 
 app = app
