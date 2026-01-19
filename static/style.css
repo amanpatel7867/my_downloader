@@ -1,8 +1,22 @@
-/* Purane CSS mein ye icons ka section add karein */
-.social-icons {
-    margin: 15px 0;
-    font-size: 1.5rem;
-}
-.social-icons .fa-youtube { color: #ff0000; margin: 0 10px; }
-.social-icons .fa-instagram { color: #e1306c; margin: 0 10px; }
-.social-icons .fa-facebook { color: #1877f2; margin: 0 10px; }
+:root { --primary: #38bdf8; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { background: var(--bg); color: var(--text); display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+.glass-container { background: var(--card); width: 100%; max-width: 450px; padding: 40px 30px; border-radius: 30px; border: 1px solid #334155; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+.logo { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; }
+.logo span { color: var(--primary); }
+.supported-platforms { margin: 15px 0; font-size: 1.2rem; opacity: 0.8; }
+.supported-platforms i { margin: 0 8px; transition: 0.3s; }
+.fa-youtube:hover { color: #ff0000; } .fa-instagram:hover { color: #e1306c; } .fa-facebook:hover { color: #1877f2; }
+.search-box { position: relative; margin-top: 30px; }
+input { width: 100%; padding: 16px 60px 16px 20px; border-radius: 15px; border: 2px solid #334155; background: #0f172a; color: white; font-size: 1rem; outline: none; transition: 0.3s; }
+input:focus { border-color: var(--primary); }
+button { position: absolute; right: 8px; top: 8px; height: 44px; width: 44px; border-radius: 10px; border: none; background: var(--primary); color: var(--bg); cursor: pointer; font-size: 1.2rem; }
+.result-area { margin-top: 30px; border-top: 1px solid #334155; padding-top: 25px; }
+.video-preview { position: relative; border-radius: 15px; overflow: hidden; margin-bottom: 15px; }
+.video-preview img { width: 100%; display: block; }
+.main-dl-btn { display: block; background: #22c55e; color: white; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 700; margin-top: 15px; transition: 0.3s; }
+.main-dl-btn:hover { transform: scale(1.02); background: #16a34a; }
+.disclaimer-card { margin-top: 35px; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 15px; text-align: left; }
+.disclaimer-card h5 { color: var(--primary); margin-bottom: 8px; font-size: 0.9rem; }
+.disclaimer-card p { font-size: 0.75rem; color: #94a3b8; line-height: 1.6; }
+.error-msg { margin-top: 15px; color: #f87171; font-size: 0.85rem; }
