@@ -12,31 +12,33 @@ def index():
 def get_link():
     url = request.form.get('video_url')
     if not url:
-        return render_template('index.html', error="Kripya URL paste karein!")
+        return render_template('index.html', error="Kripya link paste karein!")
 
-    # Cookies file ka rasta (path)
+    # Block se bachne ke liye Cookies file ka istemal
     cookie_path = 'cookies.txt'
 
     try:
         ydl_opts = {
+            # 'best' format se teeno sites ke links nikal aayenge
             'format': 'best',
             'noplaylist': True,
             'quiet': True,
             'nocheckcertificate': True,
-            # Ye line block ko bypass karegi
             'cookiefile': cookie_path if os.path.exists(cookie_path) else None,
+            # Professional User-Agent
             'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         }
         
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
-            return render_template('index.html', 
-                                 direct_url=info.get('url'), 
-                                 title=info.get('title'), 
-                                 thumb=info.get('thumbnail'))
+            video_url = info.get('url')
+            title = info.get('title', 'Social Media Video')
+            thumb = info.get('thumbnail', 'https://via.placeholder.com/300x200?text=No+Thumbnail')
+
+        return render_template('index.html', direct_url=video_url, title=title, thumb=thumb)
 
     except Exception as e:
-        print(f"Error detail: {e}")
-        return render_template('index.html', error="Cookies update karne ki zaroorat hai ya YouTube ne block kiya hai.")
+        print(f"Error: {e}")
+        return render_template('index.html', error="Link nahi mil paya. Link sahi hai ya nahi, ye check karein.")
 
 app = app
